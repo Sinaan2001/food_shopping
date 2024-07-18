@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  {% load static %}
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <link rel="icon" href="{% static 'images/fevicon/food.png' %}" type="image/gif" />
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Fudday</title>
+
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!-- fonts style -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+</head>
+
+<body>
+<header class="header_section">
+      <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="/" >
+            <span>
+              fudday
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  ">
+              <li class="nav-item ">
+                <a class="nav-link" href='/'>Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://fudday.com/">Contact Us</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Register</a>
+              </li>
+            </ul>
+            {% if itc > 0 %}
+            <div class="user_optio_box">
+              <a href="{% url 'cartdetails' %}">
+                <i class="fa fa-shopping-cart" aria-hidden="true">&nbsp;<small style="color: red">{{itc}}</small></i>
+              </a>
+            </div>
+            {% endif %}
+
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+    <section class="product_section ">
+        <div class="container">
+          <div class="product_container">
+            {% for i in pr %}
+            <div class="box">
+              <div class="box-content">
+                <div class="img-box">
+                 <a href="{{i.get_url}}"> <img src="{{i.image.url}}" alt=""> </a>
+                </div>
+                <div class="detail-box">
+                  <div class="text">
+                    <h6>
+                      {{i.name}}
+                    </h6>
+                    <h5>
+                      <span>₹</span>{{i.price}}
+                    </h5>
+                  </div>
+                  <div class="like">
+                    <h6>
+                      {{i.category}}
+                    </h6>
+                    <div class="text">
+                      <h6>
+                        <small>({{i.stock}})</small>
+                      </h6>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                 <div class="text" style="text-align:center; font-family:system-ui">
+                      <p>
+                        {{i.desc}}
+                      </p>
+                 </div>
+              </div>
+              <div class="btn-box">
+                <a href="{% url 'addcart' i.id %}">
+                  Add To Cart
+                </a>
+              </div>
+            </div>
+          {% endfor %}
+
+          </div>
+        </div>
+    </section>
+
+  <!-- end product section -->
+{% include 'base.html' %}
+</body>
+</html>
